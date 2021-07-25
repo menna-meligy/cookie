@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="master.css">
+    <script src="script.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" placeholder="enter your name" name="username" id="usern">
+    <input type="email" placeholder="enter your email" name="email" id="mail">
+
+    <input type="button" value="save Info" onclick="saveInfo()">
+    <!-- <button value="cookie Values" id="cookie" onclick="cookieValues() , getAllCookie()"> getCookieValues </button> -->
+    <input type="checkBox" value="RememberMe" name="rM" id="rememberMe">
+    <label for="rememberMe"> RememberMe </label>
+    <button onclick="deleteCookie()" id="delete"> LOGOUT</button>
+
+
+    <div id="divID"> </div>
+    <script>
+        function saveInfo() {
+            var valOne = document.getElementById("usern").value;
+            if (document.getElementById("RememberMe").checked) {
+                var date = new Date();
+                date.setMonth(date.getMonth() + 2);
+            } else {
+                //for getting the current date as an expiration if the remember me is not checked 
+            }
+
+            function deleteCookie() {
+                var cookie = getAllCookie();
+                for (i in cookie) {
+                    document.cookie = i + "=; expires at = 9-9-2019";
+                }
+
+            }
+            var valTwo = document.getElementById("mail").value;
+            var datetwo = new Date();
+            datetwo.setMonth(datetwo.getMonth() + 4);
+
+            document.cookie = "usernameCookie=" + valOne + ";expirydate =" + date;
+            document.cookie = "emailCookie=" + valTwo + ";expirydate =" + datetwo;
+        }
+
+        function cookieValues() {
+            var cookieVals = document.cookie;
+
+            var firstcookieInx = cookieVals.indexOf("usernameCookie");
+            var firstcookieInxsemiColon = cookieVals.indexOf(";", firstcookieInx);
+
+            var firstcookievalue = cookieVals.substring(firstcookieInx, firstcookieInxsemiColon).split("=")[1];
+
+            var secondcookieInx = cookieVals.indexOf("emailCookie");
+            if (secondcookieInx < 0) {
+                var secondcookievalue = cookieVals.substring(secondcookieInx, cookieVals.length).split("=")[1];
+            } else {
+                var secondcookieInxsemiColon = cookieVals.indexOf(";", secondcookieInx);
+                var secondcookievalue = cookieVals.substring(secondcookieInx, secondcookieInxsemiColon).split("=")[1];
+            }
+        }
+        // document.getElementById("divID").innerHTML = " welcome! your cookieusername is " + firstcookievalue + " and your cookieemail is " + secondcookievalue;
+        //another way to enhance cookie values generally by assoiative array 
+
+
+        function getAllCookie() {
+
+
+            var assoiativeCookie = [];
+            var cookieSplit = document.cookie.split(";");
+
+            for (var i = 0; i < cookieSplit.length; i++) {
+                assoiativeCookie[cookieSplit[i].split("=")[0].trim()] = cookieSplit[i].split("=")[1];
+            }
+            return assoiativeCookie;
+        }
+    </script>
+
+
+
+</body>
+
+</html>
